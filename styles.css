@@ -1,0 +1,77 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #64ba8a;
+}
+
+
+.main-menu-container, .game-window {
+    background-color: #b1fe6e;
+}
+
+.main-menu-container {
+    width: 90%;
+    height: 10%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px black;
+    margin: 0 auto;
+    margin-top: 20px;
+    transition: all 0.1s linear;
+}
+
+.game-window {
+    width: 90%;
+    height: 80%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px black;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.game-grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(10,1fr);
+}
+.grid-box {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-family: Tahoma, sans-serif;
+    transition: all 0.1s linear;
+}
+.grid-box:nth-of-type(1) {
+    border-radius: 10px 0 0 0 ;
+}
+.grid-box:nth-of-type(15) {
+    border-radius: 0 10px 0 0 ;
+}
+.grid-box:nth-of-type(136) {
+    border-radius: 0 0 0 10px;
+}
+.grid-box:nth-of-type(150) {
+    border-radius: 0 0 10px 0;
+}
+
+.grid-box {
+    box-shadow: 2px 1px 0 1px black;
+}
+
+
+.gogreen {
+    background-color: palegreen;
+}
+
+
+
+.clicked {
+    box-shadow: none;
+}
