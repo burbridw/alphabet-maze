@@ -8,26 +8,27 @@ html, body {
     background-color: #64ba8a;
 }
 
-
-.main-menu-container, .game-window {
-    background-color: #b1fe6e;
-}
-
 .main-menu-container {
     width: 90%;
     height: 10%;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px 1px black;
     margin: 0 auto;
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.main-menu-button {
+    background-color: #fcdb82;
+    width: 30%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 1px black;
     transition: all 0.1s linear;
 }
-
 .game-window {
+    background-color: #fcdb82;
     width: 90%;
     height: 80%;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 1px black;
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -38,6 +39,7 @@ html, body {
     height: 100%;
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(10,1fr);
+    gap: 3px;
 }
 .grid-box {
     border: 1px solid black;
