@@ -31,6 +31,17 @@ html, body {
     align-items: center;
     font-size: 3rem;
 }
+.new-game,.show-answer {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+@media (max-width:700px) {
+    .new-game,.show-answer {
+        font-size: 1rem;
+    }
+}
 .game-window {
     background-color: #fcdb82;
     width: 90%;
@@ -78,6 +89,23 @@ html, body {
     font-family: Tahoma, sans-serif;
     transition: all 0.1s linear;
 }
+
+@media (max-height:750px) {
+    .grid-box {
+        font-size: 1.5rem;
+    }
+    .big-small,.start-button {
+        font-size: 2rem;
+    }
+}
+@media (max-height:450px) {
+    .grid-box {
+        font-size: 1rem;
+    }
+    .big-small,.start-button {
+        font-size: 1.5rem;
+    }
+}
 .grid-box:nth-of-type(1) {
     border-radius: 10px 0 0 0 ;
 }
@@ -106,10 +134,17 @@ html, body {
 .ready {
     background-color: greenyellow;
 }
+
+.clicked {
+    box-shadow: none;
+}
+
+.win {
+    background-color: lightskyblue;
+    box-shadow: 0 0 5px 5px white;
+}
 .hide-me {
     display: none;
     z-index: -5;
 }
-.clicked {
-    box-shadow: none;
-}
+

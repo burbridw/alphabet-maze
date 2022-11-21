@@ -3,21 +3,18 @@ let isgreen = 0
 let answer = []
 let gotOne = false
 let lower = false
-
+let answerSeen = false
+let stepPath = []
+let takingFirstStep = 0
+let refreshCount = 0
+let looping = 0
+let gameWonDisplay = 0
 
 const firstCol = [0,15,30,45,60,75,90,105,120,135]
 const lastCol = [14,29,44,59,74,89,104,119,134,149]
 const topRow = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
 const bottomRow = [135,136,137,138,139,140,141,142,143,144,145,146,147,148,149]
-
 const moves = [1,-15,15]
-
-
-let stepPath = []
-
-let takingFirstStep = 0
-let refreshCount = 0
-let looping = 0
 
 const gameGrid = document.querySelector(".game-grid")
 const gameCover = document.querySelector(".game-grid-cover")
@@ -25,9 +22,10 @@ const gameCover = document.querySelector(".game-grid-cover")
 const mainMenuBtn = document.querySelectorAll(".main-menu-button")
 const startBtn = document.querySelector(".start-button")
 const bigSmallBtn = document.querySelector(".big-small")
+const newGameBtn = document.querySelector(".new-game")
+const showAnswerBtn = document.querySelector(".show-answer")
 
 const letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x","y", "z"]
-
 const lines =   [
     [0, 1, 16, 31, 32, 33, 34, 19, 20, 21, 22, 37, 52, 53, 68, 83, 84, 85, 70, 55, 56, 57, 72, 87, 88, 89],
     [0, 1, 2, 3, 18, 33, 48, 47, 62, 63, 64, 65, 50, 51, 52, 67, 82, 97, 98, 99, 114, 115, 116, 117, 118, 119],
@@ -98,11 +96,11 @@ const lines =   [
     [120, 135, 136, 121, 122, 123, 124, 139, 140, 125, 110, 95, 96, 97, 98, 113, 114, 115, 116, 117, 102, 87, 88, 89, 74, 59],
     [0, 15, 16, 31, 32, 33, 48, 49, 50, 65, 80, 81, 66, 67, 82, 83, 84, 85, 100, 115, 116, 131, 132, 133, 134, 149]
     ]
-console.log(lines.length)
 
 mainMenuBtn.forEach( (x)=> {
     x.addEventListener("click",()=>{
     x.classList.add("clicked")
+    console.log("clicked")
     setTimeout( ()=> {
         x.classList.remove("clicked")
     }, 500)
@@ -124,6 +122,32 @@ bigSmallBtn.addEventListener("click",()=>{
     }
 })
 
+newGameBtn.addEventListener("click",()=>{
+    restart()
+})
+
+showAnswerBtn.addEventListener("click",()=>{
+    if (!answerSeen) {
+        answerSeen = true
+        greenCount = 26
+        let answerBoxes = document.querySelectorAll(".answer")
+        answerBoxes.forEach( (x) => {
+            if ( !x.classList.contains("gogreen") ) {
+                x.classList.add("gogreen")
+            }
+        })
+    } else if (answerSeen) {
+        answerSeen = false
+        greenCount = 0
+        let answerBoxes = document.querySelectorAll(".answer")
+        answerBoxes.forEach( (x) => {
+            if ( x.classList.contains("gogreen") ) {
+                x.classList.remove("gogreen")
+            }
+        })
+    }
+})
+
 function setPattern(line) {
     answer = line
     for ( let i = 0; i < 26; i++ ) {
@@ -131,16 +155,22 @@ function setPattern(line) {
         let currentBox = gameGrid.children[thisBox]
         currentBox.innerHTML = `<div class="letter-box">${letters[i].toUpperCase()}</div>`
         ready()
-        /*currentBox.classList.add("gogreen")*/
+        currentBox.classList.add("answer")
     }
 }
 
 function start() {
     for ( let i = 0; i < 10*15; i++) {
         let getRandom = Math.floor( Math.random()*letters.length)
-        gameGrid.innerHTML += `
-        <div class="grid-box"><div class="letter-box">${letters[getRandom].toUpperCase()}</div></div>
-        `
+        if (!lower) {
+            gameGrid.innerHTML += `
+            <div class="grid-box"><div class="letter-box">${letters[getRandom].toUpperCase()}</div></div>
+            `
+        } else {
+            gameGrid.innerHTML += `
+            <div class="grid-box"><div class="letter-box">${letters[getRandom].toLowerCase()}</div></div>
+            `
+        }
         let allBoxes = document.querySelectorAll(".grid-box")
         allBoxes.forEach( (x) => {
             x.addEventListener("click",()=>{
@@ -175,6 +205,7 @@ function checkAnswer() {
         }
     } if ( isgreen === 26 ) {
         console.log("you win")
+        gameWon()
     }
 }
 
@@ -247,4 +278,29 @@ function gameOn() {
     startBtn.textContent = "PLEASE WAIT"
     gameCover.classList.add("hide-me")
     gameGrid.classList.remove("hide-me")
+}
+
+function restart() {
+    gotOne = false
+    answerSeen = false
+    takingFirstStep = 0
+    greenCount = 0
+    gameWonDisplay = 0
+    answer = []
+    gameGrid.innerHTML = ""
+    gameGrid.classList.add("hide-me")
+    gameCover.classList.remove("hide-me")
+    start()
+}
+
+
+function gameWon() {
+    setTimeout( () => {
+        let thisBox = gameGrid.children[answer[gameWonDisplay]]
+        thisBox.classList.add("win")
+        gameWonDisplay++
+        if (gameWonDisplay < 26) {
+            gameWon()
+        }
+    },200)
 }
