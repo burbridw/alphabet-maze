@@ -155,7 +155,11 @@ function setPattern(line) {
     for ( let i = 0; i < 26; i++ ) {
         let thisBox = line[i]
         let currentBox = gameGrid.children[thisBox]
+        if (!lower) {
         currentBox.innerHTML = `<div class="letter-box">${letters[i].toUpperCase()}</div>`
+        } else {
+            currentBox.innerHTML - `<div class="letter-box">${letters[i].toLowerCase()}</div>`
+        }
         ready()
         currentBox.classList.add("answer")
     }
