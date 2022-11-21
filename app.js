@@ -100,7 +100,6 @@ const lines =   [
 mainMenuBtn.forEach( (x)=> {
     x.addEventListener("click",()=>{
     x.classList.add("clicked")
-    console.log("clicked")
     setTimeout( ()=> {
         x.classList.remove("clicked")
     }, 500)
@@ -124,6 +123,9 @@ bigSmallBtn.addEventListener("click",()=>{
 
 newGameBtn.addEventListener("click",()=>{
     restart()
+    if ( newGameBtn.classList.contains("make-white") ) {
+        newGameBtn.classList.remove("make-white")
+    }
 })
 
 showAnswerBtn.addEventListener("click",()=>{
@@ -204,7 +206,6 @@ function checkAnswer() {
             isgreen++
         }
     } if ( isgreen === 26 ) {
-        console.log("you win")
         gameWon()
     }
 }
@@ -213,13 +214,11 @@ function checkAnswer() {
 function takeFirstStep(){
     if ( takingFirstStep < 200 && !gotOne) {
     takingFirstStep++
-    console.log(takingFirstStep)
     stepPath = []
     looping = 0
     let getRandom = Math.floor( Math.random()*firstCol.length )
     let firstStep = firstCol[getRandom]
     stepPath.push( firstStep )
-    console.log( stepPath )
     takeNextStep(firstStep)
     } else if ( takingFirstStep >= 200 && !gotOne ) {
         let getRandom = Math.floor( Math.random()*lines.length )
@@ -235,7 +234,6 @@ function takeNextStep(num){
         if ( nextStep < 0 || nextStep > 149 || stepPath.includes( nextStep ) ) {
             looping++
             if ( looping > 10 ) {
-                console.log("try again")
                 takeFirstStep()
             } else {
             takeNextStep(num)
@@ -251,12 +249,9 @@ function takeNextStep(num){
     if ( lastCol.includes( finalStep ) ) {
         let final = [...new Set(stepPath)]
         if (final.length === 26 && !gotOne) {
-            console.log("got one")
             gotOne = true
-            console.log( stepPath )
             setPattern(stepPath)
         } /*else {
-            console.log("close")
             return;
             takeFirstStep()
         }*/
@@ -301,6 +296,8 @@ function gameWon() {
         gameWonDisplay++
         if (gameWonDisplay < 26) {
             gameWon()
+        } else {
+            newGameBtn.classList.add("make-white")
         }
     },200)
 }

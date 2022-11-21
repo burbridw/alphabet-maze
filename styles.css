@@ -132,13 +132,15 @@ html, body {
     background-color: black;
 }
 .ready {
-    background-color: greenyellow;
+    background-color: green;
 }
 
 .clicked {
     box-shadow: none;
 }
-
+.make-white {
+    box-shadow: 0 0 10px 10px white;
+}
 .win {
     background-color: lightskyblue;
     box-shadow: 0 0 5px 5px white;
