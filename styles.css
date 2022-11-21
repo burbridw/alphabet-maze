@@ -6,6 +6,7 @@ html, body {
     overflow: hidden;
     box-sizing: border-box;
     background-color: #64ba8a;
+    font-family: Tahoma, sans-serif;
 }
 
 .main-menu-container {
@@ -24,6 +25,12 @@ html, body {
     box-shadow: 2px 2px 2px 1px black;
     transition: all 0.1s linear;
 }
+.big-small {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+}
 .game-window {
     background-color: #fcdb82;
     width: 90%;
@@ -31,6 +38,27 @@ html, body {
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 20px;
+}
+
+.game-grid-cover {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 1px 0 2px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: #fcdb82;
+}
+.start-button {
+    width: 30%;
+    height: 20%;
+    background-color: #64ba8a;
+    color: white;
+    font-size: 3rem;
+    border-radius: 10px;
+    box-shadow: 1px 1px 0px 1px black;
 }
 
 .game-grid {
@@ -64,7 +92,7 @@ html, body {
 }
 
 .grid-box {
-    box-shadow: 2px 1px 0 1px black;
+    box-shadow: 1px 1px 0 1px black;
 }
 
 
@@ -72,8 +100,16 @@ html, body {
     background-color: palegreen;
 }
 
-
-
+.generating {
+    background-color: black;
+}
+.ready {
+    background-color: greenyellow;
+}
+.hide-me {
+    display: none;
+    z-index: -5;
+}
 .clicked {
     box-shadow: none;
 }
