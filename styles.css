@@ -141,6 +141,12 @@ html, body {
 .make-white {
     box-shadow: 0 0 10px 10px white;
 }
+.show-hint {
+    box-shadow: 0 0 5px 5px white;
+}
+.show-mistake {
+    box-shadow: 0 0 5px 5px red;
+}
 .win {
     background-color: lightskyblue;
     box-shadow: 0 0 5px 5px white;
