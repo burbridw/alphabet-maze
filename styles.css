@@ -31,6 +31,40 @@ html, body {
     align-items: center;
     font-size: 3rem;
 }
+.outer-box {
+    background-color: #fcdb82;
+    box-shadow: 2px 2px 2px 1px black;
+    border-radius: 100px;
+    height: 100%;
+    width: 10%;
+}
+.inner-box {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #64ba8a;
+    height: 76%;
+    width: 83%;
+    border-radius: 75px;
+}
+.slider {
+    height: 100%;
+    width: 46%;
+    background-color: #fcdb82;
+    box-shadow: 2px 1px 2px 1px black;
+    position: relative;
+    border-radius: 75px;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+.slider.move {
+    transform: translateX(120%);
+    background-color: greenyellow;
+}
 .new-game,.show-answer {
     display:flex;
     justify-content: center;

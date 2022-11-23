@@ -23,6 +23,8 @@ const gameCover = document.querySelector(".game-grid-cover")
 const mainMenuBtn = document.querySelectorAll(".main-menu-button")
 const startBtn = document.querySelector(".start-button")
 const bigSmallBtn = document.querySelector(".big-small")
+const slider = document.querySelector(".slider")
+
 const newGameBtn = document.querySelector(".new-game")
 const showAnswerBtn = document.querySelector(".show-answer")
 
@@ -107,7 +109,7 @@ mainMenuBtn.forEach( (x)=> {
 })
 })
 
-bigSmallBtn.addEventListener("click",()=>{
+/*bigSmallBtn.addEventListener("click",()=>{
     let allLetters = document.querySelectorAll(".letter-box")
     if ( !lower ) {
         lower = true
@@ -115,6 +117,24 @@ bigSmallBtn.addEventListener("click",()=>{
             x.textContent = x.textContent.toLowerCase()
             })
     } else {
+        lower = false
+        allLetters.forEach( (x) => {
+            x.textContent = x.textContent.toUpperCase()
+            })
+    }
+})*/
+slider.addEventListener("click",function() {
+    let allLetters = document.querySelectorAll(".letter-box")
+    if ( !lower ) {
+        slider.classList.add("move")
+        slider.innerHTML = `<span>a</span>`
+        lower = true
+        allLetters.forEach( (x) => {
+            x.textContent = x.textContent.toLowerCase()
+            })
+    } else {
+        slider.classList.remove("move")
+        slider.innerHTML = `<span>A</span>`
         lower = false
         allLetters.forEach( (x) => {
             x.textContent = x.textContent.toUpperCase()
