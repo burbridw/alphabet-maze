@@ -109,20 +109,6 @@ mainMenuBtn.forEach( (x)=> {
 })
 })
 
-/*bigSmallBtn.addEventListener("click",()=>{
-    let allLetters = document.querySelectorAll(".letter-box")
-    if ( !lower ) {
-        lower = true
-        allLetters.forEach( (x) => {
-            x.textContent = x.textContent.toLowerCase()
-            })
-    } else {
-        lower = false
-        allLetters.forEach( (x) => {
-            x.textContent = x.textContent.toUpperCase()
-            })
-    }
-})*/
 slider.addEventListener("click",function() {
     let allLetters = document.querySelectorAll(".letter-box")
     if ( !lower ) {
@@ -149,32 +135,8 @@ newGameBtn.addEventListener("click",()=>{
     }
 })
 
-showAnswerBtn.addEventListener("click",()=>{
-    /*if (!answerSeen) {
-        answerSeen = true
-        let alreadyGreen = document.querySelectorAll(".gogreen")
-        alreadyGreen.forEach( (x)=>{
-            x.classList.remove("gogreen")
-            if ( x.classList.contains("clicked") ) {
-            x.classList.remove("clicked")
-            }
-        })
-        greenCount = 26
-        let answerBoxes = document.querySelectorAll(".answer")
-        answerBoxes.forEach( (x) => {
-            x.classList.add("gogreen")
-        })
-    } else if (answerSeen) {
-        answerSeen = false
-        greenCount = 0
-        let allGreens = document.querySelectorAll(".gogreen")
-        allGreens.forEach( (x) => {
-            x.classList.remove("gogreen")
-        })
-    }*/
-    giveHint()
-    
-})
+showAnswerBtn.addEventListener("click",giveHint)
+
 function giveHint() {
     if ( greenCount < 26 ) {
         let currentBox = gameGrid.children[answer[hintCount]]
@@ -259,9 +221,6 @@ function start() {
         })
     }
     takeFirstStep()
-    /*let getRandom = Math.floor( Math.random()*lines.length )
-    setPattern(lines[getRandom])
-    answer = lines[getRandom]*/
 }
 start()
 
@@ -318,10 +277,7 @@ function takeNextStep(num){
         if (final.length === 26 && !gotOne) {
             gotOne = true
             setPattern(stepPath)
-        } /*else {
-            return;
-            takeFirstStep()
-        }*/
+        }
     } else {
             takeFirstStep()
     }
