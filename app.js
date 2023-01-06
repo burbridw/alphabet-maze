@@ -4,9 +4,9 @@ let answer = []
 let gotOne = false
 let lower = false
 let answerSeen = false
+let inGame = false
 let stepPath = []
 let takingFirstStep = 0
-let refreshCount = 0
 let looping = 0
 let gameWonDisplay = 0
 let hintCount = 0
@@ -24,7 +24,6 @@ const mainMenuBtn = document.querySelectorAll(".main-menu-button")
 const startBtn = document.querySelector(".start-button")
 const bigSmallBtn = document.querySelector(".big-small")
 const slider = document.querySelector(".slider")
-
 const newGameBtn = document.querySelector(".new-game")
 const showAnswerBtn = document.querySelector(".show-answer")
 
@@ -102,13 +101,12 @@ const lines =   [
 
 mainMenuBtn.forEach( (x)=> {
     x.addEventListener("click",()=>{
-    x.classList.add("clicked")
-    setTimeout( ()=> {
-        x.classList.remove("clicked")
-    }, 500)
+        x.classList.add("clicked")
+        setTimeout( ()=> {
+            x.classList.remove("clicked")
+        }, 500)
+    })
 })
-})
-
 slider.addEventListener("click",function() {
     let allLetters = document.querySelectorAll(".letter-box")
     if ( !lower ) {
@@ -127,54 +125,52 @@ slider.addEventListener("click",function() {
             })
     }
 })
-
 newGameBtn.addEventListener("click",()=>{
     restart()
     if ( newGameBtn.classList.contains("make-white") ) {
         newGameBtn.classList.remove("make-white")
     }
 })
-
 showAnswerBtn.addEventListener("click",giveHint)
 
 function giveHint() {
-    if ( greenCount < 26 ) {
-        let currentBox = gameGrid.children[answer[hintCount]]
-        if ( !currentBox.classList.contains("gogreen") ) {
-            currentBox.classList.add("gogreen")
-            currentBox.classList.add("clicked")
-            currentBox.classList.add("show-hint")
-            setTimeout( ()=>{
-                currentBox.classList.remove("show-hint")
-            },1500)
-            greenCount++
-            if ( greenCount === 26 ) {
-                checkAnswer()
-                hintCount = 0
+    if ( inGame ) {
+        if ( greenCount < 26 ) {
+            let currentBox = gameGrid.children[answer[hintCount]]
+            if ( !currentBox.classList.contains("gogreen") ) {
+                currentBox.classList.add("gogreen")
+                currentBox.classList.add("clicked")
+                currentBox.classList.add("show-hint")
+                setTimeout( ()=>{
+                    currentBox.classList.remove("show-hint")
+                },1500)
+                greenCount++
+                if ( greenCount === 26 ) {
+                    checkAnswer()
+                    hintCount = 0
+                }
+            } else {
+                hintCount++
+                giveHint()
             }
         } else {
-            hintCount++
-            giveHint()
-        }
-    } else {
-        let allGreens = document.querySelectorAll(".gogreen")
-        allGreens.forEach( (x) => {
-            if ( !x.classList.contains("answer") ) {
-                x.classList.remove("gogreen")
-                x.classList.add("show-mistake")
-                setTimeout(()=>{
-                    x.classList.remove("show-mistake")
-                },1500)
-                greenCount--
-                if ( x.classList.contains("clicked") ) {
-                    x.classList.remove("clicked")
+            let allGreens = document.querySelectorAll(".gogreen")
+            allGreens.forEach( (x) => {
+                if ( !x.classList.contains("answer") ) {
+                    x.classList.remove("gogreen")
+                    x.classList.add("show-mistake")
+                    setTimeout(()=>{
+                        x.classList.remove("show-mistake")
+                    },1500)
+                    greenCount--
+                    if ( x.classList.contains("clicked") ) {
+                        x.classList.remove("clicked")
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
-
-
 function setPattern(line) {
     answer = line
     for ( let i = 0; i < 26; i++ ) {
@@ -185,11 +181,10 @@ function setPattern(line) {
         } else {
             currentBox.innerHTML = `<div class="letter-box">${letters[i].toLowerCase()}</div>`
         }
-        ready()
         currentBox.classList.add("answer")
     }
+    ready()
 }
-
 function start() {
     for ( let i = 0; i < 10*15; i++) {
         let getRandom = Math.floor( Math.random()*letters.length)
@@ -235,8 +230,6 @@ function checkAnswer() {
         gameWon()
     }
 }
-
-
 function takeFirstStep(){
     if ( takingFirstStep < 200 && !gotOne) {
     takingFirstStep++
@@ -282,7 +275,6 @@ function takeNextStep(num){
             takeFirstStep()
     }
 }
-
 function ready() {
     startBtn.classList.add("ready")
     startBtn.textContent = "READY"
@@ -296,8 +288,8 @@ function gameOn() {
     startBtn.textContent = "PLEASE WAIT"
     gameCover.classList.add("hide-me")
     gameGrid.classList.remove("hide-me")
+    inGame = true
 }
-
 function restart() {
     gotOne = false
     answerSeen = false
@@ -311,9 +303,8 @@ function restart() {
     gameCover.classList.remove("hide-me")
     start()
 }
-
-
 function gameWon() {
+    inGame = false
     setTimeout( () => {
         let thisBox = gameGrid.children[answer[gameWonDisplay]]
         thisBox.classList.add("win")

@@ -13,7 +13,7 @@ html, body {
     width: 90%;
     height: 10%;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 3vh;
     display: flex;
     justify-content: space-between;
 }
@@ -36,7 +36,7 @@ html, body {
     box-shadow: 2px 2px 2px 1px black;
     border-radius: 100px;
     height: 100%;
-    width: 10%;
+    width: 10vmax;
 }
 .inner-box {
     position: relative;
@@ -82,7 +82,7 @@ html, body {
     height: 80%;
     border-radius: 10px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 3vh;
 }
 
 .game-grid-cover {
@@ -190,3 +190,12 @@ html, body {
     z-index: -5;
 }
 
+@media (orientation: portrait) {
+    .grid-box {
+        font-size: 1.2rem;
+    }
+    .start-button {
+        width: 50%;
+        font-size: 2rem;
+    }
+}
